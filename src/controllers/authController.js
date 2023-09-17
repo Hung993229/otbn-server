@@ -8,10 +8,11 @@ const authController = {
         try {
             const salt = await bcrypt.genSalt(10);
             const hashed = await bcrypt.hash(req.body.password, salt);
+            const hashed2 = await bcrypt.hash(req.body.email, salt);
             // create user new
             const newUser = await new User({
                 username: req.body.username,
-                email: req.body.email,
+                email: hashed2,
                 password: hashed,
             });
             //  save to DB
@@ -68,7 +69,7 @@ const authController = {
                     path: "/",
                     sameSite: "strict",
                 });
-                const { password, ...others } = user._doc;
+                const { email, password, ...others } = user._doc;
                 return res.status(200).json({ ...others, accessToken });
             }
         } catch (err) {
