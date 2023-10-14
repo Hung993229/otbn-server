@@ -3,33 +3,44 @@ const Post = require("../models/Post");
 const postController = {
     addPost: async (req, res) => {
         const {
-            hoTen,
             banner,
             avatar,
+            hoTen,
+            cauNoiTamDac,
             gioiTinh,
-            diaChi,
             tinhTrangHonNhan,
+            // ngay sinh
+            ngaySinh,
+            thangSinh,
+            namSinh,
+            // Que Quan
+            tinhQq,
+            huyenQq,
+            xaQq,
+            // Hien Dang Song
+            tinhDs,
+            huyenDs,
+            xaDs,
+
             tonGiao,
             ngheNghiep,
             thuNhap,
             chieuCao,
             canNang,
-            soThich,
-            soGhet,
             gioiThieuThem,
-            dienThoai,
-            zalo,
+
+            // Mau nguoi yeu ly tuong
             gioiTinh2,
-            diaChi2,
             tinhTrangHonNhan2,
+            khuVucLamQuen2,
             tonGiao2,
             ngheNghiep2,
             thuNhap2,
-            chieuCao2,
-            canNang2,
-            soThich2,
-            soGhet2,
-            gioiThieuThem2,
+            tuoiHop2,
+            tuoiHop3,
+            yeucaukhac2,
+            myStatus,
+            user,
         } = req.body;
 
         if (!hoTen) {
@@ -41,43 +52,49 @@ const postController = {
         if (hoTen) {
             try {
                 const newPost = new Post({
-                    hoTen,
                     banner,
                     avatar,
+                    hoTen,
+                    cauNoiTamDac,
                     gioiTinh,
-                    diaChi,
                     tinhTrangHonNhan,
+                    // ngay sinh
+                    ngaySinh,
+                    thangSinh,
+                    namSinh,
+                    // Que Quan
+                    tinhQq,
+                    huyenQq,
+                    xaQq,
+                    // Hien Dang Song
+                    tinhDs,
+                    huyenDs,
+                    xaDs,
+
                     tonGiao,
                     ngheNghiep,
                     thuNhap,
                     chieuCao,
                     canNang,
-                    soThich,
-                    soGhet,
                     gioiThieuThem,
-                    dienThoai,
-                    zalo,
+
+                    // Mau nguoi yeu ly tuong
                     gioiTinh2,
-                    diaChi2,
                     tinhTrangHonNhan2,
+                    khuVucLamQuen2,
                     tonGiao2,
                     ngheNghiep2,
                     thuNhap2,
-                    chieuCao2,
-                    canNang2,
-                    soThich2,
-                    soGhet2,
-                    gioiThieuThem2,
-                    user: req.userId,
+                    tuoiHop2,
+                    tuoiHop3,
+                    yeucaukhac2,
+                    myStatus,
+                    user,
                 });
 
                 await newPost.save();
 
-                res.json({
-                    success: true,
-                    message: "Happy learning!",
-                    post: newPost,
-                });
+                res.json(newPost);
             } catch (error) {
                 console.log(error);
                 return res.status(500).json({
@@ -89,97 +106,118 @@ const postController = {
     },
     getPost: async (req, res) => {
         try {
-            const posts = await Post.find({ user: req.userId }).populate(
-                "user",
-                ["username"]
-            );
-            return res.json({ success: true, posts });
-        } catch (error) {
-            console.log(error);
-            return res
-                .status(500)
-                .json({ success: false, message: "Internal server error" });
+            const post = await Post.findOne({ user: req.params.id });
+            return res.status(200).json(post);
+        } catch (err) {
+            return res.status(500).json(err);
         }
     },
-
+    yourPost: async (req, res) => {
+        try {
+            const post = await Post.findOne({ user: req.params.id });
+            return res.status(200).json(post);
+        } catch (err) {
+            return res.status(500).json(err);
+        }
+    },
     putPost: async (req, res) => {
         const {
-            hoTen,
             banner,
             avatar,
+            hoTen,
+            cauNoiTamDac,
             gioiTinh,
-            diaChi,
             tinhTrangHonNhan,
+            // ngay sinh
+            ngaySinh,
+            thangSinh,
+            namSinh,
+            // Que Quan
+            tinhQq,
+            huyenQq,
+            xaQq,
+            // Hien Dang Song
+            tinhDs,
+            huyenDs,
+            xaDs,
+
             tonGiao,
             ngheNghiep,
             thuNhap,
             chieuCao,
             canNang,
-            soThich,
-            soGhet,
             gioiThieuThem,
-            dienThoai,
-            zalo,
+
+            // Mau nguoi yeu ly tuong
             gioiTinh2,
-            diaChi2,
             tinhTrangHonNhan2,
+            khuVucLamQuen2,
             tonGiao2,
             ngheNghiep2,
             thuNhap2,
-            chieuCao2,
-            canNang2,
-            soThich2,
-            soGhet2,
-            gioiThieuThem2,
+            tuoiHop2,
+            tuoiHop3,
+            yeucaukhac2,
+            myStatus,
         } = req.body;
 
         // Simple validation
-        if (!hoTen)
-            return res
-                .status(400)
-                .json({ success: false, message: "Title is required" });
+        // if (!hoTen)
+        //     return res
+        //         .status(400)
+        //         .json({ success: false, message: "Title is required" });
 
         try {
             let updatedPost = {
-                hoTen,
                 banner,
                 avatar,
+                hoTen,
+                cauNoiTamDac,
                 gioiTinh,
-                diaChi,
                 tinhTrangHonNhan,
+                // ngay sinh
+                ngaySinh,
+                thangSinh,
+                namSinh,
+                // Que Quan
+                tinhQq,
+                huyenQq,
+                xaQq,
+                // Hien Dang Song
+                tinhDs,
+                huyenDs,
+                xaDs,
+
                 tonGiao,
                 ngheNghiep,
                 thuNhap,
                 chieuCao,
                 canNang,
-                soThich,
-                soGhet,
                 gioiThieuThem,
-                dienThoai,
-                zalo,
+
+                // Mau nguoi yeu ly tuong
                 gioiTinh2,
-                diaChi2,
                 tinhTrangHonNhan2,
+                khuVucLamQuen2,
                 tonGiao2,
                 ngheNghiep2,
                 thuNhap2,
-                chieuCao2,
-                canNang2,
-                soThich2,
-                soGhet2,
-                gioiThieuThem2,
-                user: req.userId,
+                tuoiHop2,
+                tuoiHop3,
+                yeucaukhac2,
+                myStatus,
             };
-
             const postUpdateCondition = {
                 _id: req.params.id,
-                user: req.userId,
+                // user: req.userId,
             };
 
             updatedPost = await Post.findOneAndUpdate(
                 postUpdateCondition,
                 updatedPost,
-                { new: true }
+                {
+                    new: true,
+                }
             );
             // User not authorised to update post or post not found
             if (!updatedPost)
@@ -188,11 +226,7 @@ const postController = {
                     message: "Post not found or user not authorised",
                 });
 
-            return res.json({
-                success: true,
-                message: "Excellent progress!",
-                post: updatedPost,
-            });
+            return res.json(updatedPost);
         } catch (error) {
             console.log(error);
             return res.status(500).json({
@@ -203,28 +237,46 @@ const postController = {
     },
     deletePost: async (req, res) => {
         try {
-            const postDeleteCondition = {
-                _id: req.params.id,
-                user: req.userId,
-            };
-            const deletedPost = await Post.findOneAndDelete(
-                postDeleteCondition
-            );
-
-            // User not authorised or post not found
-            if (!deletedPost)
-                return res.status(401).json({
-                    success: false,
-                    message: "Post not found or user not authorised",
-                });
-
-            return res.json({ success: true, post: deletedPost });
+            const post = await Post.findById(req.params.id);
+            return res.json("delete post success");
         } catch (error) {
             console.log(error);
             return res.status(500).json({
                 success: false,
                 message: "Internal server error",
             });
+        }
+    },
+    getAllPost: async (req, res) => {
+        const {
+            gioiTinh2,
+            tinhTrangHonNhan2,
+            tonGiao2,
+            thuNhap2,
+            tuoiHop2,
+            tuoiHop3,
+            huyenDs,
+            huyenQq,
+        } = req.query;
+        try {
+            const allPost = await Post.find({
+                $and: [
+                    { myStatus: 0 },
+                    { gioiTinh: gioiTinh2 },
+                    { tinhTrangHonNhan: tinhTrangHonNhan2 },
+                    { tonGiao: tonGiao2 },
+                    { thuNhap: thuNhap2 },
+                    { namSinh: { $gte: tuoiHop2 } },
+                    { namSinh: { $lte: tuoiHop3 } },
+                    {
+                        $or: [{ huyenDs: huyenDs }, { huyenQq: huyenQq }],
+                    },
+                ],
+            });
+
+            return res.status(200).json(allPost);
+        } catch (err) {
+            return res.status(500).json(err);
         }
     },
 };
