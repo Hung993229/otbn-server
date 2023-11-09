@@ -10,7 +10,7 @@ const statusSchema = new Schema(
             type: String,
         },
         yourIdDangKetNoi: {
-            type: String,
+            type: String
         },
         user: {
             type: Schema.Types.ObjectId,

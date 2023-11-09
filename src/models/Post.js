@@ -42,6 +42,7 @@ const PostSchema = new Schema(
         tuoiHop3: { type: String },
         yeucaukhac2: { type: String },
         myStatus: { type: String },
+        vaiTro: { type: String },
         user: {
             type: Schema.Types.ObjectId,
             ref: "users",

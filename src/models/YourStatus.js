@@ -4,8 +4,16 @@ const Schema = mongoose.Schema;
 const yourstatusSchema = new Schema(
     {
         yourIdYeuCauKetNoi: {
-            type: String,
-            unique: true,
+            type: String
+        },
+        dongYKetNoi: {
+            type: String
+        },
+        tuChoiKetNoi: {
+            type: String
+        },
+        huyKetNoi: {
+            type: String
         },
         hoTen: {
             type: String,

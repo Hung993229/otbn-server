@@ -40,6 +40,7 @@ const postController = {
             tuoiHop3,
             yeucaukhac2,
             myStatus,
+            vaiTro,
             user,
         } = req.body;
 
@@ -89,6 +90,7 @@ const postController = {
                     tuoiHop3,
                     yeucaukhac2,
                     myStatus,
+                    vaiTro,
                     user,
                 });
 
@@ -159,6 +161,7 @@ const postController = {
             tuoiHop3,
             yeucaukhac2,
             myStatus,
+            vaiTro,
         } = req.body;
 
         // Simple validation
@@ -206,6 +209,7 @@ const postController = {
                 tuoiHop3,
                 yeucaukhac2,
                 myStatus,
+                vaiTro,
             };
             const postUpdateCondition = {
                 _id: req.params.id,
@@ -260,17 +264,25 @@ const postController = {
         } = req.query;
         try {
             const allPost = await Post.find({
-                $and: [
-                    { myStatus: 0 },
-                    { gioiTinh: gioiTinh2 },
-                    { tinhTrangHonNhan: tinhTrangHonNhan2 },
-                    { tonGiao: tonGiao2 },
-                    { thuNhap: thuNhap2 },
-                    { namSinh: { $gte: tuoiHop2 } },
-                    { namSinh: { $lte: tuoiHop3 } },
+                $or: [
                     {
-                        $or: [{ huyenDs: huyenDs }, { huyenQq: huyenQq }],
+                        $and: [
+                            { myStatus: 0 },
+                            { gioiTinh: gioiTinh2 },
+                            { tinhTrangHonNhan: tinhTrangHonNhan2 },
+                            { tonGiao: tonGiao2 },
+                            { thuNhap: thuNhap2 },
+                            { namSinh: { $gte: tuoiHop2 } },
+                            { namSinh: { $lte: tuoiHop3 } },
+                            {
+                                $or: [
+                                    { huyenDs: huyenDs },
+                                    { huyenQq: huyenQq },
+                                ],
+                            },
+                        ],
                     },
+                    { $and: [{ gioiTinh: gioiTinh2 }, { vaiTro: 2 }] },
                 ],
             });
 

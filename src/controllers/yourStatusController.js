@@ -1,12 +1,24 @@
 const yourstatus = require("../models/YourStatus");
 const yourStatusController = {
     addYourStatus: async (req, res) => {
-        const { yourIdYeuCauKetNoi, hoTen, namSinh, queQuan, dienThoai, user } =
-            req.body;
+        const {
+            yourIdYeuCauKetNoi,
+            dongYKetNoi,
+            tuChoiKetNoi,
+            huyKetNoi,
+            hoTen,
+            namSinh,
+            queQuan,
+            dienThoai,
+            user,
+        } = req.body;
 
         try {
             const newYourStatus = new yourstatus({
                 yourIdYeuCauKetNoi,
+                dongYKetNoi,
+                tuChoiKetNoi,
+                huyKetNoi,
                 hoTen,
                 namSinh,
                 queQuan,
@@ -32,7 +44,12 @@ const yourStatusController = {
     getYourStatus: async (req, res) => {
         try {
             const yourStatus = await yourstatus.find({
-                user: req.params.id,
+                $or: [
+                    {
+                        user: req.params.id,
+                    },
+                    { yourIdYeuCauKetNoi: req.params.id },
+                ],
             });
             return res.status(200).json({
                 success: true,
@@ -44,10 +61,22 @@ const yourStatusController = {
         }
     },
     putYourStatus: async (req, res) => {
-        const { yourIdYeuCauKetNoi, hoTen, namSinh, queQuan, user } = req.body;
+        const {
+            yourIdYeuCauKetNoi,
+            dongYKetNoi,
+            tuChoiKetNoi,
+            huyKetNoi,
+            hoTen,
+            namSinh,
+            queQuan,
+            user,
+        } = req.body;
         try {
             let updateYourStatus = {
                 yourIdYeuCauKetNoi,
+                dongYKetNoi,
+                tuChoiKetNoi,
+                huyKetNoi,
                 hoTen,
                 namSinh,
                 queQuan,
