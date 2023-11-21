@@ -21,6 +21,7 @@ const shopSchema = new Schema(
         thongTinSanPham: {
             type: String,
         },
+        
         xa: {
             type: String,
         },

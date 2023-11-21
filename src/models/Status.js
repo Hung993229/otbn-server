@@ -12,6 +12,9 @@ const statusSchema = new Schema(
         yourIdDangKetNoi: {
             type: String
         },
+        skip: {
+            type: Number,
+        },
         user: {
             type: Schema.Types.ObjectId,
             ref: "users",

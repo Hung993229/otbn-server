@@ -251,6 +251,7 @@ const postController = {
             });
         }
     },
+    // getGroupPost
     getAllPost: async (req, res) => {
         const {
             gioiTinh2,
@@ -261,7 +262,9 @@ const postController = {
             tuoiHop3,
             huyenDs,
             huyenQq,
+            skip,
         } = req.query;
+        console.log("req.query", req.query);
         try {
             const allPost = await Post.find({
                 $or: [
@@ -284,12 +287,55 @@ const postController = {
                     },
                     { $and: [{ gioiTinh: gioiTinh2 }, { vaiTro: 2 }] },
                 ],
-            });
+            })
 
+                .limit(3)
+                .skip(+skip);
+            // .select("_id")
             return res.status(200).json(allPost);
         } catch (err) {
             return res.status(500).json(err);
         }
     },
+    // getAllPost: async (req, res) => {
+    //     const {
+    //         gioiTinh2,
+    //         tinhTrangHonNhan2,
+    //         tonGiao2,
+    //         thuNhap2,
+    //         tuoiHop2,
+    //         tuoiHop3,
+    //         huyenDs,
+    //         huyenQq,
+    //     } = req.query;
+    //     try {
+    //         const allPost = await Post.find({
+    //             $or: [
+    //                 {
+    //                     $and: [
+    //                         { myStatus: 0 },
+    //                         { gioiTinh: gioiTinh2 },
+    //                         { tinhTrangHonNhan: tinhTrangHonNhan2 },
+    //                         { tonGiao: tonGiao2 },
+    //                         { thuNhap: thuNhap2 },
+    //                         { namSinh: { $gte: tuoiHop2 } },
+    //                         { namSinh: { $lte: tuoiHop3 } },
+    //                         {
+    //                             $or: [
+    //                                 { huyenDs: huyenDs },
+    //                                 { huyenQq: huyenQq },
+    //                             ],
+    //                         },
+    //                     ],
+    //                 },
+    //                 { $and: [{ gioiTinh: gioiTinh2 }, { vaiTro: 2 }] },
+    //             ],
+    //         });
+
+    //         return res.status(200).json(allPost);
+    //     } catch (err) {
+    //         return res.status(500).json(err);
+    //     }
+    // },
 };
 module.exports = postController;

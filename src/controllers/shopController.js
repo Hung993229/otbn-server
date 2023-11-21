@@ -8,6 +8,7 @@ const shopController = {
             giaNiemYet,
             thongTinNguoiBan,
             thongTinSanPham,
+
             xa,
             huyen,
             tinh,
@@ -23,6 +24,7 @@ const shopController = {
                 giaNiemYet,
                 thongTinNguoiBan,
                 thongTinSanPham,
+
                 xa,
                 huyen,
                 tinh,
@@ -69,6 +71,7 @@ const shopController = {
             giaNiemYet,
             thongTinNguoiBan,
             thongTinSanPham,
+
             xa,
             huyen,
             tinh,
@@ -86,6 +89,7 @@ const shopController = {
                 thongTinNguoiBan,
 
                 thongTinSanPham,
+
                 xa,
                 huyen,
                 tinh,

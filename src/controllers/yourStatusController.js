@@ -134,7 +134,12 @@ const yourStatusController = {
     deleteAllYourStatus: async (req, res) => {
         try {
             const deleteallYourStatus = await yourstatus.deleteMany({
-                user: req.params.id,
+                $or: [
+                    {
+                        user: req.params.id,
+                    },
+                    { dongYKetNoi: req.params.id },
+                ],
             });
             return res.status(200).json({
                 success: true,

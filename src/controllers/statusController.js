@@ -1,13 +1,14 @@
 const Status = require("../models/Status");
 const statusController = {
     addStatus: async (req, res) => {
-        const { cash, dienThoai, yourIdDangKetNoi, user } = req.body;
+        const { cash, dienThoai, yourIdDangKetNoi, skip, user } = req.body;
 
         try {
             const newStatus = new Status({
                 cash,
                 dienThoai,
                 yourIdDangKetNoi,
+                skip,
                 user,
             });
 
@@ -39,12 +40,13 @@ const statusController = {
         }
     },
     putStatus: async (req, res) => {
-        const { cash, dienThoai, yourIdDangKetNoi, user } = req.body;
+        const { cash, dienThoai, yourIdDangKetNoi, skip, user } = req.body;
         try {
             let updateStatus = {
                 cash,
                 dienThoai,
                 yourIdDangKetNoi,
+                skip,
                 user,
             };
 
